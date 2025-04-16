@@ -9,7 +9,7 @@ INSTALL_DIR="$HOME/.local/bin"
 # Ensure ~/.local/bin exists
 if [ ! -d "$INSTALL_DIR" ]; then
   echo "🔍 '$INSTALL_DIR' does not exist."
-  read -p "❓ Create it and proceed? [y/N] " yn
+  read -p "❓ Create it and proceed? [y/N] "  yn </dev/tty 
   case "$yn" in
     [Yy]* ) mkdir -p "$INSTALL_DIR" ;;
     * ) echo "❌ Aborting install."; exit 1 ;;
