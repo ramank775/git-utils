@@ -1,10 +1,11 @@
 # git-utils
 
-A collection of useful Git utilities to streamline your workflow. This repo contains scripts for tasks like cleaning up merged branches, syncing feature branches with the base branch, and more.
+A collection of useful Git utilities to streamline your workflow. This repo contains scripts for tasks like cleaning up merged branches, viewing branch-specific changes, and more.
 
 ## Features
 
-- **`git purge-branches`**: Automatically purges branches that have been merged into the main branch.
+- **`git purge-branch`**: Automatically purges local branches that have been deleted from the remote.
+- **`git changes`**: Shows commits in your current branch that aren't in the base branch.
 - **More tools coming soon**: Feel free to contribute new utilities for your Git workflow!
 
 ## Installation
@@ -19,7 +20,7 @@ To install and use these Git utilities, follow these steps:
 
    This will:
    - Install the utilities in `$HOME/.local/bin/`.
-   - Add Git aliases for each utility (e.g., `git purge-branches`).
+   - Add Git aliases for each utility (e.g., `git purge-branch`, `git changes`).
    - Check if `$HOME/.local/bin` is in your `PATH`. If not, it will notify you to add it.
 
 2. **Optional**: If `$HOME/.local/bin` does not exist, the script will prompt you to create it.
@@ -27,28 +28,47 @@ To install and use these Git utilities, follow these steps:
 3. **Run a utility**: After installation, you can use any of the utilities. For example:
 
    ```bash
-   git purge-branches
+   git purge-branch
+   git changes
    ```
 
 ## Utilities
 
-### `git purge-branches`
+### `git purge-branch`
 
-This utility helps you purge local branches that have already been merged into the base branch (e.g., `main`).
+This utility helps you purge local branches that have already been deleted from the remote.
 
 #### Usage
 
 ```bash
-git purge-branches
+git purge-branch
 ```
 
 This will:
 - Fetch the latest changes from your remote repository.
-- List and delete any local branches that have been merged into `origin/main`.
+- Identify local branches that no longer exist on the remote.
+- Delete those branches if they are fully merged into your current base.
 
-**Note**: The script checks if a branch is merged into `origin/main` before deleting it. It will not delete branches that are still unmerged.
+### `git changes`
 
-### Add More Utilities
+This utility shows commits in your current branch that aren't in the base branch (e.g., `main`, `master`, or any branch you specify).
+
+#### Usage
+
+```bash
+git changes                   # Compare with default remote HEAD
+git changes --all            # Show commits from all authors
+git changes develop          # Compare with a custom base branch
+git changes develop --all    # Custom base + all authors
+```
+
+#### What it does:
+
+- Automatically detects the base branch (`origin/HEAD`) and falls back to `main` if needed.
+- Compares commits from base to your current branch.
+- By default, filters by your Git user email. Use `--all` to show commits from everyone.
+
+## Add More Utilities
 
 If you want to add more utilities to this toolkit, you can:
 1. Create a new script in the `scripts/` directory.
@@ -57,7 +77,7 @@ If you want to add more utilities to this toolkit, you can:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
