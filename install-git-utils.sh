@@ -3,7 +3,7 @@
 set -euo pipefail
 
 REPO_BASE_URL="https://raw.githubusercontent.com/ramank775/git-utils/main"
-SCRIPTS=("git-purge-branches", "git-changes")
+SCRIPTS=("git-purge-branches" "git-changes")
 INSTALL_DIR="$HOME/.local/bin"
 
 # Ensure ~/.local/bin exists
